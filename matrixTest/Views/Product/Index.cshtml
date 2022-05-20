@@ -1,0 +1,72 @@
+﻿@model IEnumerable<matrixTest.Models.Product>
+
+    @{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+	int Counter = 0;
+}
+
+
+<h1 class="text-center">All Products</h1>
+<form asp-controller="Product" asp-action="Index">
+
+<div class="row mb-2">
+	<div class="col-4">
+ <input class="form-control" type="text" name="SearchText" placeholder="name,code,category" />
+</div>
+ <div class="col-4">
+	 <input type="submit" value="Search" class="btn btn-primary" />	 
+ </div>
+</div>
+</form>
+<table class="table table-hover">
+ <thead class="thead-dark">
+  <tr>
+	  <th>#</th>
+   <th scope="col">@Html.DisplayNameFor(model => model.Code)</th>
+   <th scope="col">
+				@Html.DisplayNameFor(model => model.Name)
+   </th>
+   <th scope="col">
+				@Html.DisplayNameFor(model => model.Price)
+   </th>
+   <th scope="col">Category</th>
+   <th scope="col">Edit</th>
+   <th scope="col">Add Property</th>
+  </tr>
+ </thead>
+ <tbody>
+		@foreach (var item in Model)
+		{
+			++Counter;
+	  <tr scope="row">
+	   <td>@Counter</td>
+	    <td>
+		@Html.DisplayFor(modelItem => item.Code)
+		</td>
+	   <td>
+				@Html.DisplayFor(modelItem => item.Name)	
+	   </td>
+	   <td>
+		@Html.DisplayFor(modelItem => item.Price)
+		</td>
+	   <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+	   
+	   <td>
+		<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+	   </td>
+	   <td>
+		<a asp-action="AddProperty" asp-route-id="@item.CategoryId" class="btn btn-primary">Add</a>
+	   </td>
+	  </tr>
+		}
+ </tbody>
+</table>
+<hr />
+<p>
+ <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
